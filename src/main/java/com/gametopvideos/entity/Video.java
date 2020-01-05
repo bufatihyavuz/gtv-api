@@ -1,5 +1,6 @@
 package com.gametopvideos.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,6 +39,7 @@ public class Video {
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
 }

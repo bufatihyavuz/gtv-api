@@ -22,8 +22,14 @@ public class VideoController {
 
 
     @GetMapping("")
-    public ResponseEntity getVideos(){
+    public ResponseEntity getAllVideos(){
         return new ResponseEntity<List<VideoDTO>>(videoService.getVideos(), HttpStatus.OK);
+    }
+
+    @CrossOrigin(origins = "http://localhost:4200")
+    @GetMapping("/{categoryId}")
+    public ResponseEntity getVideosByCategory(@PathVariable Long categoryId){
+        return new ResponseEntity<List<VideoDTO>>(videoService.getVideosByCategory(categoryId), HttpStatus.OK);
     }
 
     @PostMapping("")
