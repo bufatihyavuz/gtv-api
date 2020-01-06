@@ -30,7 +30,7 @@ public class VideoService extends GenericService<Video, VideoDTO> {
     public List<VideoDTO> getVideosByCategory(Long categoryId){
         List<VideoDTO> videoDTOList = new ArrayList<>();
         List<Video> videoList = videoRepo.findVideosByCategory_Id(categoryId);
-        return toDTOList(videoList,videoDTOList);
+        return (List<VideoDTO>)toDTOList(videoList,videoDTOList);
     }
 
     public void saveVideo(VideoDTO videoDTO){

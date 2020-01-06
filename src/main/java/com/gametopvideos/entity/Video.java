@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "VIDEO",schema = "gametopvideos",catalog = "gtv")
@@ -35,6 +36,10 @@ public class Video {
     @Basic
     @Column(name = "size", nullable = true, length = 20)
     private Long size;
+
+    @Basic
+    @Column(name = "create_date", nullable = true)
+    private LocalDateTime createDate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;

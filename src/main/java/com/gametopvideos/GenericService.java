@@ -19,11 +19,11 @@ public abstract class GenericService<E,D> implements IGenericService<E,D> {
 
     @Override
     public List<D> toDTOList(List<E> entityList, List<D> dtoList) {
-        return (List<D>) Arrays.asList(new ModelMapper().map(entityList,dtoList.getClass()));
+        return (List<D>)(new ModelMapper().map(entityList,dtoList.getClass()));
     }
 
     @Override
     public List<E> toEntityList(List<E> entityList, List<D> dtoList) {
-        return (List<E>) Arrays.asList(new ModelMapper().map(dtoList,entityList.getClass()));
+        return (List<E>)(new ModelMapper().map(dtoList,entityList.getClass()));
     }
 }
