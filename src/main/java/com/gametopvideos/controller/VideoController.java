@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -37,5 +38,11 @@ public class VideoController {
     public ResponseEntity saveVideo(@RequestBody VideoDTO videoDTO){
         videoService.saveVideo(videoDTO);
         return new ResponseEntity(HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/youtubeViews")
+    public void youtubeViews() throws IOException {
+        videoService.youtubeViews();
+
     }
 }
