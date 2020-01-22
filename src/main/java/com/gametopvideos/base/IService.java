@@ -1,8 +1,8 @@
-package com.gametopvideos;
+package com.gametopvideos.base;
 
 import java.util.List;
 
-public interface IGenericService<E,D>{
+public interface IService<E,D>{
 
     D toDTO(E entity, D dto);
     E toEntity(D dto, E entity);

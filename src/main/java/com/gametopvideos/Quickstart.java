@@ -21,7 +21,7 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.gametopvideos.Constants.CLIENT_SECRET_NAME;
+import static com.gametopvideos.base.Constants.CLIENT_SECRET_NAME;
 
 
 public class Quickstart {

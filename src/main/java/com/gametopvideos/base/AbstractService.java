@@ -1,11 +1,10 @@
-package com.gametopvideos;
+package com.gametopvideos.base;
 
 import org.modelmapper.ModelMapper;
 
-import java.util.Arrays;
 import java.util.List;
 
-public abstract class GenericService<E,D> implements IGenericService<E,D> {
+public abstract class AbstractService<E,D> implements IService<E,D> {
 
      @Override
     public D toDTO(E entity, D dto) {

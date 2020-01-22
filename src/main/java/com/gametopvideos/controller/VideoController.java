@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.gametopvideos.exception.IOException.*;
 
 import java.io.IOException;
 import java.util.List;
@@ -35,14 +36,14 @@ public class VideoController {
     }
 
     @PostMapping("")
-    public ResponseEntity saveVideo(@RequestBody VideoDTO videoDTO){
+    public ResponseEntity saveVideo(@RequestBody VideoDTO videoDTO) throws IOException, WrongParameters {
         videoService.saveVideo(videoDTO);
         return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping(value = "/youtubeViews")
     public void youtubeViews() throws IOException {
-        videoService.youtubeViews();
+        videoService.testyoutubeViews();
 
     }
 }

@@ -12,7 +12,7 @@ public class VideoDTO {
     private String title;
     private String url;
     private Long view;
-    private Long duration;
+    private String duration;
     private Long size;
     private LocalDateTime createDate;
     private UserDTO user;

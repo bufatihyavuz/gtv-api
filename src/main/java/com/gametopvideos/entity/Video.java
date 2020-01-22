@@ -31,7 +31,7 @@ public class Video {
 
     @Basic
     @Column(name = "duration", nullable = true, length = 20)
-    private Long duration;
+    private String duration;
 
     @Basic
     @Column(name = "size", nullable = true, length = 20)
