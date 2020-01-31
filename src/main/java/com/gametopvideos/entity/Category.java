@@ -20,6 +20,6 @@ public class Category {
     @Column(name = "name", nullable = true, length = 50)
     private String name;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "category",cascade = CascadeType.ALL)
-    private List<Video> videos;
+  /*  @OneToMany(fetch = FetchType.LAZY, mappedBy = "category",cascade = CascadeType.ALL)
+    private List<Video> videos;*/
 }
