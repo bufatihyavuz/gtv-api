@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter @Setter
 public class VideoDTO {
@@ -17,4 +18,6 @@ public class VideoDTO {
     private LocalDateTime createDate;
     private UserDTO user;
     private CategoryDTO category;
+    private List<VideoTagDTO> videoTagDTOList;
+    private List<String> videoTagList;
 }

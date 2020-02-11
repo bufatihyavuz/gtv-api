@@ -35,7 +35,8 @@ public class VideoController {
         return new ResponseEntity<List<VideoDTO>>(videoDTOList, HttpStatus.OK);
     }
 
-    @PostMapping("")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping("/test")
     public ResponseEntity saveVideo(@RequestBody VideoDTO videoDTO) throws IOException, WrongParameters {
         videoService.saveVideo(videoDTO);
         return new ResponseEntity(HttpStatus.OK);

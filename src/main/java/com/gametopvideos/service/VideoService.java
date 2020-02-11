@@ -3,12 +3,15 @@ package com.gametopvideos.service;
 import com.gametopvideos.base.AbstractService;
 import com.gametopvideos.base.YotubeUtil;
 import com.gametopvideos.dto.VideoDTO;
+import com.gametopvideos.dto.VideoTagDTO;
 import com.gametopvideos.dto.generics.youtubeAPI.ContentDetails;
 import com.gametopvideos.dto.generics.youtubeAPI.Snippet;
 import com.gametopvideos.dto.generics.youtubeAPI.Statistics;
 import com.gametopvideos.dto.generics.youtubeAPI.YtVideoDTO;
 import com.gametopvideos.entity.Video;
+import com.gametopvideos.entity.VideoTag;
 import com.gametopvideos.repo.VideoRepo;
+import com.gametopvideos.repo.VideoTagRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -27,10 +30,12 @@ import java.util.List;
 public class VideoService extends AbstractService<Video, VideoDTO> {
 
     private VideoRepo videoRepo;
+    private VideoTagRepo videoTagRepo;
 
     @Autowired
-    public VideoService(VideoRepo videoRepo) {
+    public VideoService(VideoRepo videoRepo, VideoTagRepo videoTagRepo) {
         this.videoRepo = videoRepo;
+        this.videoTagRepo = videoTagRepo;
     }
 
 
@@ -47,13 +52,23 @@ public class VideoService extends AbstractService<Video, VideoDTO> {
     }
 
     public void saveVideo(VideoDTO videoDTO) throws IOException, WrongParameters {
+        List<VideoTag> videoTagList = new ArrayList<>();
         VideoDTO finalVideoDTO = fillVideoDTOByYoutubeApi(videoDTO);
         Video video = toEntity(finalVideoDTO,new Video());
-        videoRepo.save(video);
+        Video savedVideo = videoRepo.save(video);
+
+        for (String tag : finalVideoDTO.getVideoTagList()){
+            VideoTag videoTag = new VideoTag();
+            videoTag.setTag(tag);
+            videoTag.setVideo(savedVideo);
+            videoTagList.add(videoTag);
+        }
+        videoTagRepo.saveAll(videoTagList);
     }
 
     private VideoDTO fillVideoDTOByYoutubeApi(VideoDTO videoDTO) throws WrongParameters, IOException {
         String videoId = "";
+        List<VideoTagDTO> videoTagDTOList = new ArrayList<>();
         if(videoDTO == null ||  videoDTO.getUrl().isEmpty()){
             throw new WrongParameters("WrongParameters Exception");
         }
@@ -70,6 +85,8 @@ public class VideoService extends AbstractService<Video, VideoDTO> {
         videoDTO.setDuration(contentDetails.getDuration());
         DateTimeFormatter f = DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault());
         videoDTO.setCreateDate(LocalDateTime.parse(snippet.getPublishedAt(), f));
+
+        videoDTO.setVideoTagList(snippet.getTags());
         return videoDTO;
     }
 
