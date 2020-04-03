@@ -28,14 +28,12 @@ public class VideoController {
         return new ResponseEntity<List<VideoDTO>>(videoService.getVideos(), HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @GetMapping("/{categoryId}")
+    @GetMapping("categories/{categoryId}")
     public ResponseEntity getVideosByCategory(@PathVariable Long categoryId){
         List<VideoDTO> videoDTOList = videoService.getVideosByCategory(categoryId);
         return new ResponseEntity<List<VideoDTO>>(videoDTOList, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping("/test")
     public ResponseEntity saveVideo(@RequestBody VideoDTO videoDTO) throws IOException, WrongParameters {
         videoService.saveVideo(videoDTO);
