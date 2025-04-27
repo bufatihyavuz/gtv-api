@@ -1,5 +1,8 @@
-package com.gametopvideos.dto;
+package com.gametopvideos.vo;
 
+import com.gametopvideos.dto.CategoryDTO;
+import com.gametopvideos.dto.UserDTO;
+import com.gametopvideos.dto.VideoTagDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -7,8 +10,9 @@ import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Getter @Setter
-public class VideoDTO {
+@Getter
+@Setter
+public class VideoVO {
 
     private BigInteger id;
     private String title;
@@ -21,4 +25,5 @@ public class VideoDTO {
     private CategoryDTO category;
     private List<VideoTagDTO> videoTagDTOList;
     private List<String> videoTagList;
+
 }

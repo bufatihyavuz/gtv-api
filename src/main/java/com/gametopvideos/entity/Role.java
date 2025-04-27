@@ -6,7 +6,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ROLE",schema = "gametopvideos",catalog = "gtv")
+@Table(name = "ROLE",catalog = "gtv")
 @Getter @Setter
 public class Role {
 

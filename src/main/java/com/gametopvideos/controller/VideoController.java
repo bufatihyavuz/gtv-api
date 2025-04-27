@@ -3,6 +3,7 @@ package com.gametopvideos.controller;
 import com.gametopvideos.dto.VideoDTO;
 import com.gametopvideos.service.VideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,10 +23,14 @@ public class VideoController {
         this.videoService = videoService;
     }
 
-
     @GetMapping("")
     public ResponseEntity getAllVideos(){
-        return new ResponseEntity<List<VideoDTO>>(videoService.getVideos(), HttpStatus.OK);
+        return new ResponseEntity<>(videoService.getVideos(), HttpStatus.OK);
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity getAllVideos(Pageable pageable){
+        return new ResponseEntity<>(videoService.getVideosPageable(pageable), HttpStatus.OK);
     }
 
     @GetMapping("categories/{categoryId}")
@@ -34,7 +39,7 @@ public class VideoController {
         return new ResponseEntity<List<VideoDTO>>(videoDTOList, HttpStatus.OK);
     }
 
-    @PostMapping("/test")
+    @PostMapping
     public ResponseEntity saveVideo(@RequestBody VideoDTO videoDTO) throws IOException, WrongParameters {
         videoService.saveVideo(videoDTO);
         return new ResponseEntity(HttpStatus.OK);

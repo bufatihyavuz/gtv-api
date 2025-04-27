@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "CATEGORY",schema = "gametopvideos",catalog = "gtv")
+@Table(name = "CATEGORY",catalog = "gtv")
 @Getter @Setter
 public class Category {
 

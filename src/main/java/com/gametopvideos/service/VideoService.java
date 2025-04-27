@@ -2,6 +2,7 @@ package com.gametopvideos.service;
 
 import com.gametopvideos.base.AbstractService;
 import com.gametopvideos.base.YotubeUtil;
+import com.gametopvideos.dto.IVideoDTO;
 import com.gametopvideos.dto.VideoDTO;
 import com.gametopvideos.dto.VideoTagDTO;
 import com.gametopvideos.dto.generics.youtubeAPI.ContentDetails;
@@ -13,17 +14,19 @@ import com.gametopvideos.entity.VideoTag;
 import com.gametopvideos.repo.VideoRepo;
 import com.gametopvideos.repo.VideoTagRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.gametopvideos.exception.IOException.*;
 
-import javax.xml.ws.Response;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -39,10 +42,14 @@ public class VideoService extends AbstractService<Video, VideoDTO> {
     }
 
 
-    public List<VideoDTO> getVideos(){
+    public List<IVideoDTO> getVideos(){
+        return  videoRepo.getAll();
+    }
+
+    public List<VideoDTO> getVideosPageable(Pageable pageable){
         List<VideoDTO> videoDTOList = new ArrayList<>();
-        List<Video> videoList = videoRepo.findAll();
-        return toDTOList(videoList,videoDTOList);
+        Page<Video> videoList = videoRepo.findAll(pageable);
+        return toDTOList(videoList.toList(),videoDTOList);
     }
 
     public List<VideoDTO> getVideosByCategory(Long categoryId){
@@ -60,7 +67,7 @@ public class VideoService extends AbstractService<Video, VideoDTO> {
         for (String tag : finalVideoDTO.getVideoTagList()){
             VideoTag videoTag = new VideoTag();
             videoTag.setTag(tag);
-            videoTag.setVideo(savedVideo);
+            videoTag.setVideos(Collections.singletonList(savedVideo));
             videoTagList.add(videoTag);
         }
         videoTagRepo.saveAll(videoTagList);

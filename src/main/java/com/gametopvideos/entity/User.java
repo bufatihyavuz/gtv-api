@@ -4,17 +4,18 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.math.BigInteger;
 import java.util.List;
 
 @Entity
-@Table(name = "USER",schema = "gametopvideos",catalog = "gtv")
+@Table(name = "GTVUSER",catalog = "gtv")
 @Getter @Setter
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private BigInteger id;
 
     @Basic
     @Column(name = "name", nullable = true, length = 50)
@@ -36,6 +37,6 @@ public class User {
     private List<Video> videos;
 
     @ManyToMany(fetch=FetchType.LAZY)
-    @JoinTable(name = "USER_ROLES",schema = "gametopvideos",catalog = "gtv")
+    @JoinTable(name = "USER_ROLES",catalog = "gtv")
     private List<Role> roles;
 }

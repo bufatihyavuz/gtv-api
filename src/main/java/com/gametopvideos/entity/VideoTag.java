@@ -5,9 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
-@Table(name = "VIDEOTAG",schema = "gametopvideos",catalog = "gtv")
+@Table(name = "VIDEO_TAG",catalog = "gtv")
 @Getter @Setter
 public class VideoTag {
 
@@ -20,9 +21,18 @@ public class VideoTag {
     @Column(name = "tag", nullable = true, length = 100)
     private String tag;
 
+/*    @JsonIgnore
+    @ManyToMany
+    @JoinTable(
+            name = "video_tag_video",  // İlişkiyi tutacak tablo
+            joinColumns = @JoinColumn(name = "video_tag_id"),  // Student tablosunun foreign key
+            inverseJoinColumns = @JoinColumn(name = "video_id")  // Course tablosunun foreign key
+    )
+    private List<Video> videos;*/
+
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Video video;
+    @ManyToMany(mappedBy = "videoTagList")  // VideoTag ile ilişkili Video'lar
+    private List<Video> videos;
 
 
 }
